@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <title>教务系统</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 引入 Vue的JS库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <style>
+
+      
+        .blan {position: sticky; top: 0;}
+        #nav{ height:40px; text-align:center;margin: auto; }
+        #nav li{margin-left:20px; float:left; list-style-type: none; width:80px;
+                font-size:20px; }
+        #nav li ul {display:none; border:1px ;border-bottom:1px solid #9CDD75; }
+        #nav li ul li{
+                      margin-left:0px; margin-top:0px; padding:0; background:#F7F7F7;
+                      width:90px; border-bottom:1px solid #9CDD75; }
+        #nav li:hover ul {display:block; margin-top:-2px; margin-left:10px; float:left;}
+        #nav li:hover ul li a {display:block;float:left; line-height:25px; filter:Alpha(opacity=50);}
+        #nav li:hover ul li a:hover {filter:Alpha(opacity=100);background:#7AB237; width:100%; color:#fff}
+        
+        .myul {
+          float: left;
+        }
+        .footerWarp{  
+          width: 100%;
+          border-top: 5px solid #f9dd04;
+          background: url(../教务系统项目/img/footer_bg.jpg) no-repeat top center;
+          z-index: 9999;
+          position: relative;
+        }
+        .footer_md{
+          
+          text-align: center;
+          
+        }
+        .footer_md2{
+          text-align: center;
+        }
+      </style>
+
+  </head>
+  <body>
+
+<div id="app">
+    <!-- 图标 -->
+    <div style="height: 120px; background-color: #abc8cc;">
+        <a href="index.html">
+            <img href="#" style="height: 90px;margin-top: 15px; margin-left: 80px;" src="img/logoname.png" alt="">
+    
+        </a>
+        <img style="margin-right: 100px; opacity: 40%;" class="h-100 float-right" src="img/logosm (2).png" alt="">
+    </div>
+    <!-- 导航 -->
+    <div style="height: 65px; background-color: #a3cafc ;" class="blan" id="nav">
+        <div id="navtext">
+            <li style="margin-left: 200px;" class="my-3"><a href="#">学校概况</a>
+                <ul>
+                    <li><a href="#">科大简介</a></li>
+                    <li><a href="#">校训校歌</a></li>
+                    <li><a href="#">标识系统</a></li>
+                </ul>
+            </li>
+            <li style="margin-left: 50px;" class="my-3"><a href="#">信息查询<a>
+                        <ul>
+                            <li><a href="me.html">个人信息</a></li>
+                            <li><a href="me2.html">学籍信息</a></li>
+                            <li><a href="me3.html">其他信息</a></li>
+                        </ul>
+            </li>
+    
+            <li style="margin-left: 50px;" class="my-3"><a href="sele.html">成绩查询</a></li>
+    
+            <li style="margin-left: 50px;" class="my-3"><a href="#">老师管理<a>
+                        <ul>
+                            <li><a href="cjxg2.html">成绩录入</a></li>
+                            <li><a href="#">成绩审核</a></li>
+                        </ul>
+            </li>
+        </div>
+    </div>
+
+    <!-- 成绩修改 -->
+    <div class="container">
+        <!-- 表格体 -->
+        <div class="row">
+
+            <!-- 新增 -->
+            <div class="container">
+                <button data-toggle="modal" data-target="#modelId" type="button"
+                    class="btn btn-outline-success my-3">录入新成绩</button>
+                <div id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true"
+                    class="modal fade">
+                    <div role="document" class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">录入新成绩</h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="">姓名</label>
+                                    <input v-model="StuName" type="text" placeholder="请输入姓名" class="form-control">
+                                </div>
+                                <div class="form-group"><label for="">学号</label>
+                                    <input v-model="StuId" type="text" placeholder="请输入学号" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">课程</label>
+                                    <select v-model="StuCourse" class="form-control">
+                                        <option>Java</option>
+                                        <option>Python</option>
+                                        <option>Rust</option>
+                                        <option>JS</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">成绩</label>
+                                    <div v-model="StuGrade" class="row">
+                                        <div class="form-check form-check-inline mx-3"><label
+                                                class="form-check-label"><input type="radio" name="grade" value="A"
+                                                    class="form-check-input"> A
+                                            </label></div>
+                                        <div class="form-check form-check-inline mx-3"><label
+                                                class="form-check-label"><input type="radio" name="grade" value="B"
+                                                    class="form-check-input"> B
+                                            </label></div>
+                                        <div class="form-check form-check-inline mx-3"><label
+                                                class="form-check-label"><input type="radio" name="grade" value="C"
+                                                    class="form-check-input"> C
+                                            </label></div>
+                                        <div class="form-check form-check-inline mx-3"><label
+                                                class="form-check-label"><input type="radio" name="grade" value="D"
+                                                    class="form-check-input"> D
+                                            </label></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">取消</button>
+                                <button @click="addStu()" type="button" data-dismiss="modal"
+                                    class="btn btn-success">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xs-12">
+                    <form class="form-inline my-2 my-lg-0">
+
+
+                        <button @click="btn" class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                        <input class="form-control mr-sm-2" type="text" placeholder="请输入学号" v-model="search">
+
+
+                    </form>
+
+                    <table class="table  table-bordered table-hover  text-center">
+                        <thead>
+                            <th>
+                                <label><input v-model="checked" v-on:click="checkedAll" type="checkbox"></label>
+                            </th>
+                            <th>姓名</th>
+                            <th>学号</th>
+                            <th>课程</th>
+                            <th>成绩</th>
+                            <th>操作</th>
+
+
+                        </thead>
+                        <tbody>
+                            <tr v-for="(s, i) in StuList" :key="i">
+                                <td class="text-center"><label>
+                                        <input type='checkbox' name='checkboxinput' class='input-checkbox'
+                                            v-model='checkboxList'></label></td>
+                                <td>{{s.name}}</td>
+                                <td>{{s.id}}</td>
+                                <td>{{s.course}}</td>
+                                <td>{{s.grade}}</td>
+                                <td>
+
+                                    <button @click="delStu(i)" type="button" class="btn btn-outline-danger">删除</button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 分页 -->
+                <nav @click="page()" aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item ">
+                            <a class="page-link" href="" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <!-- <li class="page-item active"><a class="page-link" href="#"></a></li> -->
+                        <li v-for="(n, index) in 2" :key="index" class="page-item">
+                            <a class="page-link" href="#">{{n}}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="cjxg2.html" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+
+                <!-- 提交按钮 -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                    提交
+                </button>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">
+                                        <span class="badge badge-primary">X</span>
+                                    </span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">成绩修改</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>你已成功提交！</p>
+
+                            </div>
+
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+
+
+
+
+
+    let v = new Vue({
+        el: '#app',
+        data: {
+            StuName: '',
+            StuID: '',
+            StuCourse: '',
+            StuGrade: '',
+            size: 5,
+            search: '',
+            searchData: '',
+
+
+            StuList: [
+                {
+                    name: '张三',
+                    id: '01',
+                    course: 'Python',
+                    grade: 'A'
+                },
+                {
+                    name: '张三',
+                    id: '01',
+                    course: 'Python',
+                    grade: 'A'
+                },
+                {
+                    name: '张三',
+                    id: '01',
+                    course: 'Python',
+                    grade: 'A'
+                },
+                {
+                    name: '张三',
+                    id: '01',
+                    course: 'Python',
+                    grade: 'A'
+                },
+                {
+                    name: '张三',
+                    id: '01',
+                    course: 'Python',
+                    grade: 'A'
+                },
+                {
+                    name: '张三',
+                    id: '01',
+                    course: 'Python',
+                    grade: 'A'
+                },
+
+            ],
+        },
+        methods: {
+            //搜索框
+            btn: function () {
+                var search = this.search;
+                if (search) {
+                    this.searchData = this.orderlist.filter(value => value.username.indexof(this.search) !== -1)
+                }
+            },
+            checkedAll: function () {
+                if (this.checked) {//实现反选
+                    this.checkboxList = [];
+                } else { //实现全选
+                    this.checkboxList = [];
+                    this.checkboxData.forEach((item) => {
+                        this.checkboxList.push(item.id);
+                    });
+                }
+            },
+
+            watch: { //深度 watcher
+                checkboxList: {
+                    handler: function (val, oldVal) {
+                        if (this.checkboxList.length === this.checkboxData.length) {
+                            this.checked = true;
+                        } else {
+                            this.checked = false;
+                        }
+                    },
+                    deep: true
+                }
+            },
+            data() {
+
+            },
+            //添加成绩
+            addStu: function () {
+                // 封装为一个对象k
+                let stu = {
+                    name: this.StuName,
+                    id: this.StuID,
+                    course: this.StuCourse,
+                    grade: this.StuGrade
+                };
+                // 对象存入数组
+                this.StuList.unshift(stu);
+                // AJAX 发送给服务端
+                // 清空输入框
+                this.StuName = '';
+                this.StuID = '';
+                this.StuCourse = '';
+                this.StuGrade = '';
+            },
+            delStu: function (i) {
+                this.StuList.splice(i, 1);
+            },
+        },
+
+
+
+        // 计算属性，封装了运算过程，使用方式与 data 类似
+        computed: {
+            // 页码数
+            page: function () {
+                let n = this.StuList.length / this.size;
+                return Math.ceil(n);
+            }
+        },
+    });
+    //增加新员工
+
+    //提交的按钮绑定
+
+    //编辑删除的按钮绑定
+
+    //搜索的按钮绑定
+</script>
+    <!-- 底部 -->
+    
+    <footer style="height: 300px;background-color: #a3cafc;" class="footerWrap clearFix">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3">
+              <ul style="list-style: none; margin: 0; margin-top: 40px; padding: 0;" class="float-left;">
+                <li class="my-2">
+                  <a style="color: rgb(255, 255, 255);" href="">学校概况</a>
+                  <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">新闻公告</a>
+                </li>
+                <li class="my-2">
+                  <a style="color: rgb(255, 255, 255);" href="me.html">个人信息</a>
+                  <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">师资队伍</a>
+                </li>
+                <li class="my-2">
+                  <a style="color: rgb(255, 255, 255);" href="sele.html">成绩查询</a>
+                  <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">科学研究</a>
+                </li>
+                <li class="my-2">
+                  <a style="color: rgb(255, 255, 255);" href="">成绩管理</a>
+                  <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">招生就业</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <div  class="footer_md">
+                <img style="margin-top: 40px; margin-bottom: 20px; width: 300px;"  src="img/logoss.png" alt="">
+              </div>
+              <div class="footer_md2">
+                <p style="color: #fff;">
+                  <span>网络故障报修：0731-87027110</span>
+                  <span>主页管理维护：0731-87027186 </span>
+                  <br>
+                  开设单位：长沙航空航天科技大学军事职业教育技术服务中心
+                  <br>
+                  <a style="color: #fff;" href="http://www.beian.miit.gov.cn">备案号：京ICP备19038296号</a>
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <ul style="list-style: none; margin: 0; margin-top: 40px; padding: 0;" class="float-right">
+                <li class="my-2">
+                  <a style="color: #fff;" href="">鸣谢</a>
+                </li>
+                <li class="my-2">
+                  <a style="color: #fff;" href="">公众号</a>
+                </li>
+                <li class="my-2">
+                  <a style="color: #fff;" href="team.html">团队介绍</a>
+                </li>
+  
+              </ul>
+            </div>
+            <hr style="margin: 0; border:1 dashed #987cb9 " width="100%" color="#987cb9" size=1>
+            <div style="color: #fff; margin-top: 20px;">
+              Copyright © 1999- 2021   长沙航空航天科技大学   版权所有
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          
+          
+  
+        </div>
+      </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ 
+</html>

@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <title>教务系统</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 引入 Vue的JS库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+      .blan {position: sticky; top: 0; z-index: 9999;}
+      #nav{ height:40px; text-align:center;margin: auto; }
+      #nav li{margin-left:20px; float:left; list-style-type: none; width:80px;
+              font-size:20px; }
+      #nav li ul {display:none; border:1px ;border-bottom:1px solid #9CDD75; }
+      #nav li ul li{
+                    margin-left:0px; margin-top:0px; padding:0; background:#F7F7F7;
+                    width:90px; border-bottom:1px solid #9CDD75; }
+      #nav li:hover ul {display:block; margin-top:-2px; margin-left:10px; float:left;}
+      #nav li:hover ul li a {display:block;float:left; line-height:25px; filter:Alpha(opacity=50);}
+      #nav li:hover ul li a:hover {filter:Alpha(opacity=100);background:#7AB237; width:100%; color:#fff}
+      
+      .myul {
+        float: left;
+      }
+      .footerWarp{  
+        width: 100%;
+        border-top: 5px solid #f9dd04;
+        background: url(../教务系统项目/img/footer_bg.jpg) no-repeat top center;
+        z-index: 9999;
+        position: relative;
+      }
+      .footer_md{
+        
+        text-align: center;
+        
+      }
+      .footer_md2{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body style="background-color: rgb(235, 235, 235);">
+    <!-- 图标 -->
+    <div style="height: 120px; background-color: #abc8cc;">
+      <a href="index.html">
+        <img href="#" style="height: 90px;margin-top: 15px; margin-left: 80px;" src="img/logoname.png" alt="">
+
+      </a>
+      <img style="margin-right: 100px; opacity: 40%;" class="h-100 float-right" src="img/logosm (2).png" alt="">
+    </div>
+    <!-- 导航 -->
+    <div style="height: 65px; background-color: #a3cafc ;" class="blan" id="nav">
+      <div id="navtext">
+      <li style="margin-left: 200px;" class="my-3"><a href="#" >学校概况</a>
+        <ul>
+          <li><a href="#">科大简介</a></li>
+          <li><a href="#">校训校歌</a></li>
+          <li><a href="#">标识系统</a></li>
+        </ul>
+      </li>
+      <li style="margin-left: 50px;" class="my-3"><a href="#" >信息查询<a>
+      <ul>
+          <li><a href="me.html">个人信息</a></li>
+          <li><a href="me2.html">学籍信息</a></li>
+          <li><a href="me3.html">其他信息</a></li>
+      </ul></li>
+      
+      <li style="margin-left: 50px;" class="my-3"><a href="sele.html" >成绩查询</a></li>
+
+      <li style="margin-left: 50px;" class="my-3"><a href="#" >老师管理<a>
+        <ul>
+            <li><a href="cjxg2.html">成绩录入</a></li>
+            <li><a href="#">成绩审核</a></li>
+        </ul></li>
+      </div>
+      </div>
+    <!-- 容器 -->
+    <div id="app" style="padding: 20px; height: 600px;" class="container bg-light my-3">
+         <!-- 条件筛选 -->
+        <div class="row ">
+            <div class="col-lg-3 col-sm-12">
+                <div class="form-group">
+                  <label for="">学年</label>
+                  <select class="form-control" name="" id="">
+                    <option>2019-2020</option>
+                    <option>2020-2021</option>
+                    <option>2021-2022</option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="form-group">
+                  <label for="">学期</label>
+                  <select class="form-control" name="" id="">
+                    <option>全部</option>
+                    <option>第一学期</option>
+                    <option>第二学期</option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="">学号</label>
+                <input type="text"
+                  class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+              <button style="margin-top: 30px;" type="button" name="" id="" class="btn btn-outline-primary btn-block ">查询</button>
+            </div>
+        </div>
+        <!-- 成绩显示 -->
+        <div class="row">
+          <div class="col-lg-12">
+            <table class="table table-bordered table-hover text-center">
+              <thead>
+                <tr>
+                  <th>查看</th>
+                  <th>学年</th>
+                  <th>学期</th>
+                  <th>学号</th>
+                  <th>课程名称</th>
+                  <th>成绩</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(s, index) in stuList" :key="index">
+                  <td>{{s.See}}</td>
+                  <td>{{s.Year}}</td>
+                  <td>{{s.Semester}}</td>
+                  <td>{{s.Id}}</td>
+                  <td>{{s.Course}}</td>
+                  <td>{{s.Grade}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- 页码 -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li
+                  v-for="(n, index) in page" :key="index"
+                  class="page-item">
+                  <a class="page-link" href="#">{{n}}</a>
+                </li>
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">下一页</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+    </div>
+
+    
+
+    <!-- JS -->
+    <script>
+      let v = new Vue({
+        el:'#app',
+        data:{
+          stuSee:'',
+          stuYear:'',
+          stuSemester:'',
+          stuCourse:'',
+          stuGrade:'',
+          sutId:'',
+
+          size:5,
+          stuList:[
+            {
+              See:'查看',
+              Year:'2019-2020',
+              Semester:'一',
+              Id:'02',
+              Course:'Java',
+              Grade:'A',
+            },
+            {
+              See:'查看',
+              Year:'2021-2022',
+              Semester:'二',
+              Id:'01',
+              Course:'Java',
+              Grade:'A',
+            },
+            {
+              See:'查看',
+              Year:'2021-2022',
+              Semester:'一',
+              Id:'01',
+              Course:'Java',
+              Grade:'A',
+            },
+            {
+              See:'查看',
+              Year:'2020-2021',
+              Semester:'二',
+              Id:'01',
+              Course:'Java',
+              Grade:'A',
+            },
+            {
+              See:'查看',
+              Year:'2019-2020',
+              Semester:'一',
+              Id:'01',
+              Course:'Java',
+              Grade:'A',
+            },
+            {
+              See:'查看',
+              Year:'2019-2020',
+              Semester:'二',
+              Id:'01',
+              Course:'Java',
+              Grade:'A',
+            },
+            {
+              See:'查看',
+              Year:'2021-2022',
+              Semester:'一',
+              Id:'01',
+              Course:'Java',
+              Grade:'A',
+            },
+            
+          ],
+        },
+        computed: {
+                // 页码数
+                page: function() {
+                    let n = this.stuList.length / this.size;
+                    return Math.ceil(n);
+                }
+            },
+      });
+    </script>
+    <!-- 底部 -->
+    
+    <footer style="background-color: #a3cafc;" class="footerWrap clearFix">
+      <div class="container py-3">
+        <div class="row">
+          <div class="col-lg-3">
+            <ul style="list-style: none; margin: 0; margin-top: 40px; padding: 0;" class="float-left;">
+              <li class="my-2">
+                <a style="color: rgb(255, 255, 255);" href="">学校概况</a>
+                <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">新闻公告</a>
+              </li>
+              <li class="my-2">
+                <a style="color: rgb(255, 255, 255);" href="me.html">个人信息</a>
+                <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">师资队伍</a>
+              </li>
+              <li class="my-2">
+                <a style="color: rgb(255, 255, 255);" href="sele.html">成绩查询</a>
+                <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">科学研究</a>
+              </li>
+              <li class="my-2">
+                <a style="color: rgb(255, 255, 255);" href="">成绩管理</a>
+                <a style="margin-left: 80px; color: rgb(255, 255, 255);" href="">招生就业</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <div  class="footer_md">
+              <img style="margin-top: 40px; margin-bottom: 20px; width: 300px;"  src="img/logonamess.png" alt="">
+            </div>
+            <div class="footer_md2">
+              <p style="color: #fff;">
+                <span>网络故障报修：1346366****</span>
+                <span>主页管理维护：1346366****</span>
+                <br>
+                开设单位：长沙航空航天科技大学技术服务中心
+                <br>
+                <a style="color: #fff;" href="#"></a>
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <ul style="list-style: none; margin: 0; margin-top: 40px; padding: 0;" class="float-right">
+              <li class="my-2">
+                <a style="color: #fff;" href="">鸣谢</a>
+              </li>
+              <li class="my-2">
+                <a style="color: #fff;" href="">公众号</a>
+              </li>
+              <li class="my-2">
+                <a style="color: #fff;" href="team.html">团队介绍</a>
+              </li>
+
+            </ul>
+          </div>          
+        </div>
+      </div>
+    </footer>
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
